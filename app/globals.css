@@ -1,19 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-  
-@layer base{
-    body{
-        @apply font-primary bg-primary text-white ;
-    }
-    .h1{
-        @apply text-[48px] xl:text-[80px] leading-[1.1] font-semibold
-    }
-    .h2{
-        @apply text-[36px] xl:text-[48px] leading-[1.1] font-semibold
-    }
-    .h3 {
-        @apply text-[24px] xl:text-[20px] leading-[1.1] font-semibold
-    }
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
+    @layer base{
+        body{
+            @apply font-primary bg-primary text-white ;
+        }
+        .h1{
+            @apply text-[48px] xl:text-[80px] leading-[1.1] font-semibold
+        }
+        .h2{
+            @apply text-[36px] xl:text-[48px] leading-[1.1] font-semibold
+        }
+        .h3 {
+            @apply text-[24px] xl:text-[20px] leading-[1.1] font-semibold
+        }
+
+    .text-ouline{
+        -webkit-text-stroke: 1px #ffffff;
+    }
+    .text-ouline-hover{
+        -webkit-text-stroke: 1px #00ff99;
+    }
 }

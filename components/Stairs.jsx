@@ -27,7 +27,7 @@ const Stairs = () => {
     }}
     className='h-full w-full bg-white relative'
     />
-);
+)
    })}
    </>
   )
