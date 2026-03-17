@@ -148,11 +148,11 @@ export default function FAANGResumePortfolio() {
           <div className="space-y-1.5 text-sm">
             <div className="flex">
               <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Languages:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Java, Python, TypeScript, JavaScript, C#, .Net</span>
+              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Java, Python, TypeScript, JavaScript, C#</span>
             </div>
             <div className="flex">
               <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Backend & APIs:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Spring Boot, Node.js, REST, gRPC, GraphQL, JWT, OAuth2</span>
+              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Fast API, Spring Boot, Node.js, REST, gRPC, GraphQL, JWT, OAuth2</span>
             </div>
             <div className="flex">
               <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Cloud & DevOps:</span>
