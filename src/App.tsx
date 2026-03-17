@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Mail, Phone, MapPin, Download, Play, ExternalLink, Moon, Sun } from 'lucide-react';
+import { Github, Linkedin, Download, Play, ExternalLink, Moon, Sun } from 'lucide-react';
 
 export default function FAANGResumePortfolio() {
   const [scrolled, setScrolled] = useState(false);
