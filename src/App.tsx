@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Download, Play, ExternalLink, Moon, Sun } from 'lucide-react';
+import { Github, Linkedin, Download, Moon, Sun, ExternalLink, Copy, Clock } from 'lucide-react';
 
 export default function FAANGResumePortfolio() {
   const [scrolled, setScrolled] = useState(false);
@@ -7,6 +7,7 @@ export default function FAANGResumePortfolio() {
   const [typedText, setTypedText] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const fullText = "Building scalable systems and AI-powered solutions";
+  const [copied, setCopied] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -15,7 +16,6 @@ export default function FAANGResumePortfolio() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Typing animation
   useEffect(() => {
     if (typedText.length < fullText.length) {
       const timeout = setTimeout(() => {
@@ -27,7 +27,6 @@ export default function FAANGResumePortfolio() {
     }
   }, [typedText]);
 
-  // Intersection Observer for scroll animations
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -57,19 +56,19 @@ export default function FAANGResumePortfolio() {
           <div className="max-w-[850px] mx-auto px-8 py-3 flex items-center justify-between">
             <span className={`text-sm font-medium ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>Atharv Joshi</span>
             <div className="flex items-center gap-3">
-              <button onClick={toggleDarkMode} 
+              <button onClick={toggleDarkMode}
                       className={`p-2 rounded transition-colors ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}>
                 {darkMode ? <Sun className="w-4 h-4 text-gray-200" /> : <Moon className="w-4 h-4 text-gray-700" />}
               </button>
-              <a href="https://github.com/joshiatharv1" target="_blank" rel="noopener noreferrer" 
+              <a href="https://github.com/joshiatharv1" target="_blank" rel="noopener noreferrer"
                  className={`p-2 rounded transition-colors ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}>
                 <Github className={`w-4 h-4 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`} />
               </a>
-              <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/atharvjoshi444/" target="_blank" rel="noopener noreferrer"
                  className={`p-2 rounded transition-colors ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'}`}>
                 <Linkedin className={`w-4 h-4 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`} />
               </a>
-              <a href="/resume.pdf" download 
+              <a href="/resume.pdf" download
                  className={`flex items-center gap-1.5 px-3 py-1.5 text-sm rounded transition-colors ${darkMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-900 hover:bg-gray-800 text-white'}`}>
                 <Download className="w-3.5 h-3.5" />
                 <span>Download PDF</span>
@@ -87,7 +86,7 @@ export default function FAANGResumePortfolio() {
 
       {/* Resume Document */}
       <div className={`max-w-[850px] mx-auto px-8 py-12 transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
-        
+
         {/* Header */}
         <header className={`mb-6 pb-4 border-b fade-in-section ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
           <h1 className={`text-3xl font-bold mb-2 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>Atharv Joshi</h1>
@@ -100,11 +99,11 @@ export default function FAANGResumePortfolio() {
             <span className={darkMode ? 'text-gray-600' : 'text-gray-400'}>|</span>
             <span>Boston, MA</span>
             <span className={darkMode ? 'text-gray-600' : 'text-gray-400'}>|</span>
-            <a href="https://github.com/joshiatharv1" target="_blank" rel="noopener noreferrer" 
+            <a href="https://github.com/joshiatharv1" target="_blank" rel="noopener noreferrer"
                className={`transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-blue-600'}`}>github.com/joshiatharv1</a>
           </div>
-          <div className="flex items-center gap-3 mt-3 print:hidden">
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer"
+          <div className="flex items-center gap-3 mt-3 print:hidden flex-wrap">
+            <a href="https://www.linkedin.com/in/atharvjoshi444/" target="_blank" rel="noopener noreferrer"
                className={`inline-flex items-center gap-1.5 text-sm transition-colors ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}>
               <Linkedin className="w-3.5 h-3.5" />
               <span>LinkedIn</span>
@@ -114,13 +113,25 @@ export default function FAANGResumePortfolio() {
               <Download className="w-3.5 h-3.5" />
               <span>Download Resume</span>
             </a>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText('joshi.atharv1@northeastern.edu');
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className={`inline-flex items-center gap-1.5 text-sm transition-colors ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}>
+              {copied ? <span className="text-green-500 font-medium">✓ Copied!</span> : <><Copy className="w-3.5 h-3.5" /><span>Copy Email</span></>}
+            </button>
+            <span className={`inline-flex items-center gap-1.5 text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              <Clock className="w-3.5 h-3.5" />
+              <span>~2 min read</span>
+            </span>
           </div>
         </header>
 
         {/* Education */}
         <section className="mb-6 fade-in-section">
           <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Education</h2>
-          
           <div className="mb-3">
             <div className="flex justify-between items-baseline mb-0.5">
               <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Northeastern University</h3>
@@ -130,7 +141,6 @@ export default function FAANGResumePortfolio() {
               MS in Information Systems <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>| GPA: 3.6/4.0</span>
             </div>
           </div>
-
           <div>
             <div className="flex justify-between items-baseline mb-0.5">
               <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Medi-Caps University</h3>
@@ -144,244 +154,141 @@ export default function FAANGResumePortfolio() {
 
         {/* Skills */}
         <section className="mb-6 fade-in-section">
-          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Skills</h2>
+          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Technical Skills</h2>
           <div className="space-y-1.5 text-sm">
-            <div className="flex">
-              <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Languages:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Java, Python, TypeScript, JavaScript, C#</span>
-            </div>
-            <div className="flex">
-              <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Backend & APIs:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Fast API, Spring Boot, Node.js, REST, gRPC, GraphQL, JWT, OAuth2</span>
-            </div>
-            <div className="flex">
-              <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Cloud & DevOps:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>AWS (ECS, EC2, RDS, S3, ALB, MSK), Docker, Terraform, GitHub Actions, CI/CD, Linux</span>
-            </div>
-            <div className="flex">
-              <span className={`font-semibold min-w-[140px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>Databases:</span>
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>PostgreSQL, MySQL, MongoDB, Redis</span>
-            </div>
+            {[
+              ['Languages', 'Java, Python, TypeScript, JavaScript, C#'],
+              ['Backend & Distributed Systems', 'Spring Boot, Node.js, FastAPI, REST APIs, gRPC, GraphQL, Microservices, Event-Driven Architecture'],
+              ['Cloud & DevOps', 'AWS (ECS, EC2, RDS, S3, MSK, ALB, CloudWatch), Docker, Terraform, Jenkins, CI/CD, Git'],
+              ['Databases & Messaging', 'PostgreSQL, MySQL, MongoDB, Redis, Kafka'],
+              ['Auth & Security', 'JWT, OAuth2'],
+              ['Monitoring & Tools', 'Datadog, Maven'],
+            ].map(([k, v]) => (
+              <div key={k} className="flex">
+                <span className={`font-semibold min-w-[210px] ${darkMode ? 'text-white' : 'text-gray-900'}`}>{k}:</span>
+                <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{v}</span>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Experience */}
         <section className="mb-6 fade-in-section">
-          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Experience</h2>
-          
+          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Professional Experience</h2>
+
           <div className={`mb-4 transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
             <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Software Developer Co-op</h3>
-                <a href="https://drive.google.com/file/d/YOUR_IPSERLAB_VIDEO" target="_blank" rel="noopener noreferrer"
-                   className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                  <Play className="w-3 h-3" />
-                  <span>Demo</span>
-                </a>
-              </div>
+              <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Software Engineer Co-op</h3>
               <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Feb 2025 – May 2025</span>
             </div>
             <div className={`mb-2 italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>IpserLab LLC – Fort Worth, TX</div>
             <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Improved frontend performance and maintainability by refactoring React components and eliminating deep prop drilling across 8+ levels.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built a metadata-driven backend that auto-generated Java models and REST APIs from XML schemas, reducing manual API development and accelerating feature delivery.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Reduced production deployment failures from 20% to 5% by introducing pre-deployment dependency validation and CI safeguards.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Reviewed 50+ PRs/week and contributed to CI/CD stability through Git hooks and release process improvements.</span>
-              </li>
+              {[
+                'Refactored complex React components, eliminating deep prop drilling (8+ levels) and reducing unnecessary re-renders by 35%, improving UI performance.',
+                'Built a metadata-driven backend system to auto-generate Java classes and REST APIs from XML schemas, reducing feature development time by 40%.',
+                'Improved production reliability by implementing dependency validation and CI safeguards, reducing deployment failures from 20% to 5%.',
+                'Contributed to Agile development through code reviews and CI/CD enhancements, reviewing 50+ PRs weekly.',
+              ].map((b, i) => (
+                <li key={i} className="flex gap-2">
+                  <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
+                  <span>{b}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className={`transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
             <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Java Developer Intern</h3>
-                <a href="https://drive.google.com/file/d/YOUR_AFFIMINTUS_VIDEO" target="_blank" rel="noopener noreferrer"
-                   className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                  <Play className="w-3 h-3" />
-                  <span>Demo</span>
-                </a>
-              </div>
+              <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Software Intern</h3>
               <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Jan 2023 – Jun 2023</span>
             </div>
             <div className={`mb-2 italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Affimintus Technologies – Indore, MP</div>
             <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built a Java-based authentication and attendance system using Core Java, JavaFX, and Tomcat.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Implemented email/SMS notifications and Oracle stored procedures for reporting and automation.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Gained hands-on exposure to Active Directory–based authentication deployed on VMware virtual machines, collaborating with ops teams on configuration, testing, and documentation.</span>
-              </li>
+              {[
+                'Developed a Java-based shipment tracking prototype with JavaFX UI, using IBM DB2 for persistence to learn enterprise database modelling and SQL querying.',
+                'Applied data structures and algorithms (graphs for route simulation, priority queues for delivery ordering, hash maps for state lookup) to implement core routing logic.',
+              ].map((b, i) => (
+                <li key={i} className="flex gap-2">
+                  <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
+                  <span>{b}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </section>
 
         {/* Projects */}
         <section className="mb-6 fade-in-section">
-          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Projects</h2>
-          
-          <div className={`mb-4 transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
-            <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Agentic AI Recipe-to-Grocery Assistant</h3>
-                <div className="flex items-center gap-1.5">
-                  <a href="https://drive.google.com/file/d/YOUR_RECIPE_VIDEO" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                    <Play className="w-3 h-3" />
-                    <span>Demo</span>
-                  </a>
-                </div>
-              </div>
-              <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Jan 2026 – Feb 2026</span>
-            </div>
-            <div className={`mb-2 text-sm italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Java, Spring Boot, OpenAI API, REST</div>
-            <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Designed an agent-based AI platform that converts YouTube recipe videos into structured grocery lists by orchestrating multiple LLM-driven agents for transcription analysis, ingredient extraction, and quantity normalization</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built backend services in Java & Spring Boot to coordinate AI agents, manage tool execution, and enforce structured JSON outputs.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Integrated external APIs (YouTube Transcript, LLMs, Maps/Places) to enable AI-driven workflows beyond simple prompt-response interactions.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Implemented caching and failure-handling strategies to ensure reliable agent execution and low-latency responses.</span>
-              </li>
-            </ul>
-          </div>
+          <h2 className={`text-lg font-bold mb-3 uppercase tracking-wide ${darkMode ? 'text-white' : 'text-gray-900'}`}>Academic Projects</h2>
 
-          <div className={`mb-4 transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
-            <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Patient Management Microservices Platform</h3>
-                <div className="flex items-center gap-1.5">
-                  <a href="https://drive.google.com/file/d/YOUR_PATIENT_VIDEO" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                    <Play className="w-3 h-3" />
-                    <span>Demo</span>
-                  </a>
-                  <a href="https://github.com/joshiatharv1/patient-management" target="_blank" rel="noopener noreferrer"
+          {[
+            {
+              title: 'Bookified – AI Voice Platform for Interactive PDF Conversations',
+              stack: 'Next.js, MongoDB, Vapi, ElevenLabs, Clerk',
+              date: 'Feb 2026 – Mar 2026',
+              link: '#',
+              bullets: [
+                'Built an AI-powered full-stack platform using Next.js and MongoDB to convert PDFs into real-time voice-interactive experiences.',
+                'Integrated low-latency voice AI using Vapi and ElevenLabs for speech-to-text, text-to-speech, and contextual conversational agents.',
+                'Designed backend pipelines for PDF parsing, session-based chat storage, and authentication using Clerk, with REST APIs and usage-based access control.',
+              ],
+            },
+            {
+              title: 'Microservices Inventory and Order Management System',
+              stack: 'FastAPI, Redis, Docker Compose',
+              date: 'Jan 2026 – Mar 2026',
+              link: '#',
+              bullets: [
+                'Architected a microservices-based e-commerce system using FastAPI, Redis, and Docker Compose with event-driven order processing via Redis Streams.',
+                'Implemented asynchronous workflows for inventory updates and payment handling, ensuring consistency and fault tolerance.',
+              ],
+            },
+            {
+              title: 'Real-Time Web Analytics Platform',
+              stack: 'FastAPI, TimescaleDB',
+              date: 'Jan 2026 – Mar 2026',
+              link: '#',
+              bullets: [
+                'Built a high-throughput event ingestion API using FastAPI with validated schemas and modular routing.',
+                'Designed a time-series data model using TimescaleDB hypertables with optimized aggregation queries (time_bucket).',
+                'Simulated 10K+ events to analyze user behavior, enabling insights on traffic patterns and session analytics.',
+              ],
+            },
+            {
+              title: 'Patient Management Microservices Platform',
+              stack: 'Java, Spring Boot, Kafka, gRPC, AWS',
+              date: 'Oct 2025 – Dec 2025',
+              link: 'https://github.com/joshiatharv1/patient-management',
+              bullets: [
+                'Designed a distributed microservices architecture with JWT authentication and API gateway routing for patient data services.',
+                'Implemented event-driven communication using Kafka and gRPC for reliable, low-latency inter-service messaging.',
+                'Containerized and deployed services on AWS ECS, integrating Amazon RDS and MSK for scalable data and streaming infrastructure.',
+              ],
+            },
+          ].map((proj, idx) => (
+            <div key={idx} className={`mb-4 transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
+              <div className="flex justify-between items-baseline mb-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{proj.title}</h3>
+                  <a href={proj.link} target="_blank" rel="noopener noreferrer"
                      className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
                     <ExternalLink className="w-3 h-3" />
-                    <span>Code</span>
+                    <span>Link</span>
                   </a>
                 </div>
+                <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>{proj.date}</span>
               </div>
-              <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Oct 2025 – Dec 2025</span>
+              <div className={`mb-2 text-sm italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>{proj.stack}</div>
+              <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {proj.bullets.map((b, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className={`mb-2 text-sm italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Java, Spring Boot, Kafka, gRPC</div>
-            <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Designed and implemented a Spring Boot microservices system with JWT authentication and API gateway routing.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built a gRPC billing service and Kafka-based event streaming for near real-time analytics.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Deployed containerized services on AWS ECS with RDS and MSK.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className={`mb-4 transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
-            <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Smart City Air Quality Monitoring System</h3>
-                <div className="flex items-center gap-1.5">
-                  <a href="https://drive.google.com/file/d/YOUR_AIRQUALITY_VIDEO" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                    <Play className="w-3 h-3" />
-                    <span>Demo</span>
-                  </a>
-                  <a href="https://github.com/joshiatharv1/air-quality" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-                    <ExternalLink className="w-3 h-3" />
-                    <span>Code</span>
-                  </a>
-                </div>
-              </div>
-              <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Aug 2025 – Nov 2025</span>
-            </div>
-            <div className={`mb-2 text-sm italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Kafka, Flink, AWS</div>
-            <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built a real-time IoT data pipeline using Kafka and Apache Flink to process air quality sensor data (CO₂, PM2.5).</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Optimized low-latency streaming through Kafka partitioning and Flink checkpointing for fault tolerance.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Delivered live monitoring dashboards using Grafana / AWS QuickSight with sub-second refresh rates.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className={`transition-transform duration-300 hover:-translate-y-1 ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-50'} p-3 -m-3 rounded-lg print:hover:transform-none print:hover:bg-transparent`}>
-            <div className="flex justify-between items-baseline mb-1">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Inventory Manager</h3>
-                <div className="flex items-center gap-1.5">
-                  <a href="https://drive.google.com/file/d/YOUR_INVENTORY_VIDEO" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-blue-900/30 text-blue-400 hover:bg-blue-900/50' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}>
-                    <Play className="w-3 h-3" />
-                    <span>Demo</span>
-                  </a>
-                  <a href="https://github.com/joshiatharv1/inventory-manager" target="_blank" rel="noopener noreferrer"
-                     className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded transition-colors print:hidden ${darkMode ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-                    <ExternalLink className="w-3 h-3" />
-                    <span>Code</span>
-                  </a>
-                </div>
-              </div>
-              <span className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Jun 2025 – Aug 2025</span>
-            </div>
-            <div className={`mb-2 text-sm italic ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Next.js, TypeScript, Node.js, PostgreSQL, AWS</div>
-            <ul className={`space-y-1 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Developed a full-stack inventory dashboard using Next.js, TypeScript, Redux Toolkit, and Tailwind CSS.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Built scalable backend APIs with Node.js, Prisma ORM, and PostgreSQL, enabling efficient CRUD operations.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Improved API performance and client-side caching using RTK Query.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className={`mt-1.5 w-1 h-1 rounded-full flex-shrink-0 ${darkMode ? 'bg-gray-500' : 'bg-gray-400'}`}></span>
-                <span>Deployed infrastructure on AWS using RDS, S3, EC2, Amplify, and API Gateway for secure, scalable access.</span>
-              </li>
-            </ul>
-          </div>
+          ))}
         </section>
 
         {/* Footer with Typing Animation */}
@@ -395,7 +302,7 @@ export default function FAANGResumePortfolio() {
             <span>•</span>
             <a href="https://github.com/joshiatharv1" target="_blank" rel="noopener noreferrer" className={`transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-blue-600'}`}>GitHub</a>
             <span>•</span>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" className={`transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-blue-600'}`}>LinkedIn</a>
+            <a href="https://www.linkedin.com/in/atharvjoshi444/" target="_blank" rel="noopener noreferrer" className={`transition-colors ${darkMode ? 'hover:text-blue-400' : 'hover:text-blue-600'}`}>LinkedIn</a>
           </div>
         </div>
 
@@ -408,47 +315,17 @@ export default function FAANGResumePortfolio() {
           transform: translateY(20px);
           transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        
         .fade-in-section.animate-in {
           opacity: 1;
           transform: translateY(0);
         }
-
         @media print {
-          body {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-          }
-          
-          .print\\:hidden {
-            display: none !important;
-          }
-          
-          .print\\:hover\\:transform-none:hover {
-            transform: none !important;
-          }
-          
-          .print\\:hover\\:bg-transparent:hover {
-            background: transparent !important;
-          }
-          
-          @page {
-            margin: 0.5in;
-          }
-          
-          .fade-in-section {
-            opacity: 1 !important;
-            transform: none !important;
-          }
-          
-          a {
-            color: inherit;
-            text-decoration: none;
-          }
-          
-          button {
-            display: none;
-          }
+          body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+          .print\\:hidden { display: none !important; }
+          @page { margin: 0.5in; }
+          .fade-in-section { opacity: 1 !important; transform: none !important; }
+          a { color: inherit; text-decoration: none; }
+          button { display: none; }
         }
       `}</style>
     </div>
